@@ -8,11 +8,13 @@ Repo for my personal website.
 
 ## Development
 
-Run a local server serving files from the `./docs` folder by using this command in the terminal from the root of the project:
+Run the dev script to start a local server and file watcher concurrently:
 
 ```
-scripts/serve
+scripts/dev
 ```
+
+This builds the site, serves files from the `./docs` folder on localhost:8080, and watches for changes in `./posts` to trigger rebuilds automatically.
 
 Most of the files in the `./docs` folder should not be edited directly as they are built using the files in the `./templates` and `./posts` folder. To build run:
 
@@ -24,17 +26,13 @@ scripts/build
 
 ## Writing
 
-Run the watch script, which watches files in the `./posts` folder and triggers a build, by running:
+To create a new post and start writing:
 
 ```
-scripts/watch
+scripts/new-post "My Title" && scripts/dev
 ```
 
-You can run both the build and watch scripts concurrently with:
-
-```
-scripts/serve & scripts/watch
-```
+This creates a new post file and launches the dev environment so you can preview your changes live.
 
 ## Testing
 

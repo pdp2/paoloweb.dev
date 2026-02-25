@@ -1,4 +1,4 @@
-import debounce from "../../js/utils/debounce.js";
+import debounce from "../utils/debounce.js";
 import build from "./build.js";
 
 console.info('\n🔍 Watching for changes...');
