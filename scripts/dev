@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Check if deno is installed
+source "$(dirname "$0")/check-deno"
+
+# Run an initial build first so the server has fresh content
+deno run --allow-read --allow-write scripts/tasks/build.js --auto-run
+
+# Start serve and watch concurrently
+deno run --allow-net --allow-read --allow-sys scripts/tasks/serve.js &
+SERVE_PID=$!
+
+deno run --allow-sys --allow-net --allow-read --allow-write scripts/tasks/watch.js &
+WATCH_PID=$!
+
+# Clean up both processes on exit (Ctrl+C)
+trap "kill $SERVE_PID $WATCH_PID 2>/dev/null; echo '\nServe and watch stopped.'" EXIT
+
+wait
