@@ -29,6 +29,23 @@ try {
     }
 }
 
+// Create a new git branch
+const branchName = `add-post-${filename.replace(/\.md$/, '')}`;
+const gitCheckout = new Deno.Command("git", {
+    args: ["checkout", "-b", branchName],
+    stderr: "piped",
+});
+const gitResult = await gitCheckout.output();
+
+if (!gitResult.success) {
+    const stderr = new TextDecoder().decode(gitResult.stderr);
+    console.error(`❌ Error: Could not create branch '${branchName}'`);
+    console.error(stderr.trim());
+    Deno.exit(1);
+}
+
+console.log(`🌿 Created and switched to branch: ${branchName}\n`);
+
 // Create the markdown file with frontmatter
 const content = `---
 title: ${postTitle} | Paolo Di Pasquale
@@ -49,7 +66,7 @@ try {
         args: [filepath],
     });
     await command.output();
-    onsole.log("\n📂 Opening file in Cursor...");
+    console.log("\n📂 Opening file in Cursor...");
 } catch (error) {
     console.error(`\n⚠️  Could not open file in Cursor: ${error.message}`);
 }
