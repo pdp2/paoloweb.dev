@@ -1,4 +1,4 @@
-# hi
+# paoloweb.dev
 Repo for my personal website.
 
 ## Pre-requisites for running locally
